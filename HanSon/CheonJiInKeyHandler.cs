@@ -69,7 +69,7 @@ namespace HanSon
             if(Jong == 'ㄳ')
             {
                 F = 'ㄱ';
-                L = 'ㄴ';
+                L = 'ㅅ';
                 return true;
             }
             else if(Jong == 'ㄵ')
@@ -307,6 +307,12 @@ namespace HanSon
                 else if (buffer[JONG_SUNG] == 'ㄹ')
                 {
                     buffer[JONG_SUNG] = 'ㄽ';
+                    SendKeys.SendWait("{BS}");
+                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                }
+                else if (buffer[JONG_SUNG] == 'ㄱ')
+                {
+                    buffer[JONG_SUNG] = 'ㄳ';
                     SendKeys.SendWait("{BS}");
                     SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
                 }
@@ -1003,6 +1009,12 @@ namespace HanSon
                     else if (buffer[JONG_SUNG] == 'ㅁ')
                     {
                         buffer[JONG_SUNG] = 'ㅇ';
+                        SendKeys.SendWait("{BS}");
+                        SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    }
+                    else if (buffer[JONG_SUNG] == 'ㄹ')
+                    {
+                        buffer[JONG_SUNG] = 'ㄻ';
                         SendKeys.SendWait("{BS}");
                         SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
                     }

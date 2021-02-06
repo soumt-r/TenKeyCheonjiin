@@ -64,6 +64,77 @@ namespace HanSon
             return -1; // Cannot Find
         }
 
+        private static bool GBCCheck(char Jong, ref char F, ref char L)
+        {
+            if(Jong == 'ㄳ')
+            {
+                F = 'ㄱ';
+                L = 'ㄴ';
+                return true;
+            }
+            else if(Jong == 'ㄵ')
+            {
+                F = 'ㄴ';
+                L = 'ㅈ';
+                return true;
+            }
+            else if (Jong == 'ㄶ')
+            {
+                F = 'ㄴ';
+                L = 'ㅎ';
+                return true;
+            }
+            else if (Jong == 'ㄺ')
+            {
+                F = 'ㄹ';
+                L = 'ㄱ';
+                return true;
+            }
+            else if (Jong == 'ㄻ')
+            {
+                F = 'ㄹ';
+                L = 'ㅁ';
+                return true;
+            }
+            else if (Jong == 'ㄼ')
+            {
+                F = 'ㄹ';
+                L = 'ㅂ';
+                return true;
+            }
+            else if (Jong == 'ㄽ')
+            {
+                F = 'ㄹ';
+                L = 'ㅅ';
+                return true;
+            }
+            else if (Jong == 'ㄾ')
+            {
+                F = 'ㄹ';
+                L = 'ㅌ';
+                return true;
+            }
+            else if (Jong == 'ㄿ')
+            {
+                F = 'ㄹ';
+                L = 'ㅍ';
+                return true;
+            }
+            else if (Jong == 'ㅀ')
+            {
+                F = 'ㄹ';
+                L = 'ㅎ';
+                return true;
+            }
+            else if (Jong == 'ㅄ')
+            {
+                F = 'ㅂ';
+                L = 'ㅅ';
+                return true;
+            }
+            return false;
+        }
+
         private static char HangleHap(char ch1, char ch2, char ch3)
         {
             char[] choSung = { 'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ' };
@@ -698,12 +769,25 @@ namespace HanSon
             }
             else if (buffer[JONG_SUNG] != ' ')
             {
+                char firstJong = new char();
+                char secondJong = new char();
                 SendKeys.SendWait("{BS}");
-                SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], ' ').ToString());
-                buffer[JUNG_SUNG] = 'ㅣ';
-                buffer[CHO_SUNG] = buffer[JONG_SUNG];
-                buffer[JONG_SUNG] = ' ';
+                if (GBCCheck(buffer[JONG_SUNG], ref firstJong, ref secondJong))
+                {
+                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], firstJong).ToString());
 
+                    buffer[JUNG_SUNG] = 'ㅣ';
+                    buffer[CHO_SUNG] = secondJong;
+                    buffer[JONG_SUNG] = ' ';
+                }
+                else
+                {
+                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], ' ').ToString());
+
+                    buffer[JUNG_SUNG] = 'ㅣ';
+                    buffer[CHO_SUNG] = buffer[JONG_SUNG];
+                    buffer[JONG_SUNG] = ' ';
+                }
                 SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
             }
 
@@ -782,15 +866,25 @@ namespace HanSon
             }
             else if (buffer[JONG_SUNG] != ' ')
             {
-
+                char firstJong = new char();
+                char secondJong = new char();
                 SendKeys.SendWait("{BS}");
-                SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], ' ').ToString());
+                if (GBCCheck(buffer[JONG_SUNG], ref firstJong, ref secondJong))
+                {
+                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], firstJong).ToString());
 
-                buffer[JUNG_SUNG] = 'ㆍ';
-                buffer[CHO_SUNG] = buffer[JONG_SUNG];
-                buffer[JONG_SUNG] = ' ';
+                    buffer[JUNG_SUNG] = 'ㆍ';
+                    buffer[CHO_SUNG] = secondJong;
+                    buffer[JONG_SUNG] = ' ';
+                }
+                else
+                {
+                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], ' ').ToString());
 
-                //SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    buffer[JUNG_SUNG] = 'ㆍ';
+                    buffer[CHO_SUNG] = buffer[JONG_SUNG];
+                    buffer[JONG_SUNG] = ' ';
+                }
                 SendKeys.SendWait(buffer[CHO_SUNG].ToString());
             }
         }
@@ -841,15 +935,26 @@ namespace HanSon
             }
             else if (buffer[JONG_SUNG] != ' ')
             {
+                char firstJong = new char();
+                char secondJong = new char();
                 SendKeys.SendWait("{BS}");
-                SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], ' ').ToString());
-                buffer[JUNG_SUNG] = 'ㅡ';
-                buffer[CHO_SUNG] = buffer[JONG_SUNG];
-                buffer[JONG_SUNG] = ' ';
+                if (GBCCheck(buffer[JONG_SUNG], ref firstJong, ref secondJong))
+                {
+                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], firstJong).ToString());
 
+                    buffer[JUNG_SUNG] = 'ㅡ';
+                    buffer[CHO_SUNG] = secondJong;
+                    buffer[JONG_SUNG] = ' ';
+                }
+                else
+                {
+                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], ' ').ToString());
 
+                    buffer[JUNG_SUNG] = 'ㅡ';
+                    buffer[CHO_SUNG] = buffer[JONG_SUNG];
+                    buffer[JONG_SUNG] = ' ';
+                }
                 SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
-
             }
         }
         private void KeyNumPad0Down(ref KeyEventArgs e)

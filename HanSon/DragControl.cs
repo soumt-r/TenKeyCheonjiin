@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.ComponentModel;
 
 namespace 궁서_급식
 {
@@ -33,7 +29,7 @@ namespace 궁서_급식
         private void DragForm_MouseDown(object sender, MouseEventArgs e)
         {
             bool flag = e.Button == MouseButtons.Left;
-            if(flag)
+            if (flag)
             {
                 DragControl.ReleaseCapture();
                 DragControl.SendMessage(this.SelectControl.FindForm().Handle, 161, 2, 0);

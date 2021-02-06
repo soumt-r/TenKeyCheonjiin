@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CopyAndPaste
@@ -53,21 +49,21 @@ namespace CopyAndPaste
 
         public CGlobalKeyboardHook()
         {
-            khp = new keyboardHookProc(hookproc);
+            khp = new keyboardHookProc(Hookproc);
         }
 
-        public void hook()
+        public void Hook()
         {
             IntPtr hInstance = LoadLibrary("User32");
             hhook = SetWindowsHookEx(WH_KEYBOARD_LL, khp, hInstance, 0);
         }
 
-        public void unhook()
+        public void Unhook()
         {
             UnhookWindowsHookEx(hhook);
         }
 
-        public int hookproc(int code, int wParam, ref keyboardHookStruct IParam)
+        public int Hookproc(int code, int wParam, ref keyboardHookStruct IParam)
         {
             if (code >= 0)
             {

@@ -1,21 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Channels;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Drawing;
-using System.IO;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace 궁서_급식
 {
-    
+
     class ElipseControl : Component
     {
-        [DllImport("Gdi32.dll", EntryPoint ="CreateRoundRectRgn")]
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
         (
             int nLeftRect,
@@ -38,11 +32,11 @@ namespace 궁서_급식
         }
         public int CornerRadius
         {
-            get { return _CornerRadius;  }
+            get { return _CornerRadius; }
             set
             {
                 _CornerRadius = value;
-                if(_cntrl != null)
+                if (_cntrl != null)
                     _cntrl.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, _cntrl.Width, _cntrl.Height, _CornerRadius, _CornerRadius));
             }
         }

@@ -726,14 +726,22 @@ namespace HanSon
                 else if (buffer[JUNG_SUNG] == 'ㆍ')
                 {
                     buffer[JUNG_SUNG] = 'ᆢ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    if (buffer[CHO_SUNG] == ' ')
+                    {
+                        SendKeys.SendWait("{BS}");
+                        SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    }
+
                 }
                 else if (buffer[JUNG_SUNG] == ' ')
                 {
                     buffer[JUNG_SUNG] = 'ㆍ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    if (buffer[CHO_SUNG] == ' ')
+                    {
+                        SendKeys.SendWait("{BS}");
+                        SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    }
+
                 }
                 else if (buffer[JUNG_SUNG] == 'ㅣ')
                 {
@@ -774,13 +782,16 @@ namespace HanSon
             }
             else if (buffer[JONG_SUNG] != ' ')
             {
+
                 SendKeys.SendWait("{BS}");
                 SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], ' ').ToString());
+
                 buffer[JUNG_SUNG] = 'ㆍ';
                 buffer[CHO_SUNG] = buffer[JONG_SUNG];
                 buffer[JONG_SUNG] = ' ';
 
-                SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                //SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                SendKeys.SendWait(buffer[CHO_SUNG].ToString());
             }
         }
         private void KeyNumPad9Down(ref KeyEventArgs e)
@@ -836,7 +847,9 @@ namespace HanSon
                 buffer[CHO_SUNG] = buffer[JONG_SUNG];
                 buffer[JONG_SUNG] = ' ';
 
+
                 SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+
             }
         }
         private void KeyNumPad0Down(ref KeyEventArgs e)

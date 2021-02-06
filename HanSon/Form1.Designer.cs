@@ -306,7 +306,6 @@
             this.label9.TabIndex = 6;
             this.label9.Text = "ㅈㅊ";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // panel10
             // 

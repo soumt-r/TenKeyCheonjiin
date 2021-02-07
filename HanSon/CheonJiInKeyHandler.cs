@@ -142,13 +142,15 @@ namespace HanSon
                             'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ' };
             char[] jongSung = { ' ', 'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ', 'ㄵ', 'ㄶ', 'ㄷ', 'ㄹ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ',
                             'ㅀ', 'ㅁ', 'ㅂ', 'ㅄ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ' };
-
             int choSungIndex, jungSungIndex, jongSungIndex;
             bool isValidIndex;
-
+            
             choSungIndex = GetIndexFromSyllables(choSung, ch1);
             jungSungIndex = GetIndexFromSyllables(jungSung, ch2);
             jongSungIndex = GetIndexFromSyllables(jongSung, ch3);
+
+            if (-1 == choSungIndex)
+                return ch2;
 
             isValidIndex = (-1 != choSungIndex) && (-1 != jungSungIndex) && (-1 != jongSungIndex);
             Debug.Assert(isValidIndex);
@@ -678,8 +680,8 @@ namespace HanSon
             {
                 if (buffer[CHO_SUNG] == ' ' && buffer[JUNG_SUNG] == ' ')
                 {
-                    buffer[JUNG_SUNG] = 'l';
-                    SendKeys.SendWait("l");
+                    buffer[JUNG_SUNG] = 'ㅣ';
+                    SendKeys.SendWait("ㅣ");
                 }
                 else if (buffer[JUNG_SUNG] == 'ㅓ')
                 {

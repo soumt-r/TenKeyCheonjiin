@@ -135,7 +135,7 @@ namespace HanSon
             return false;
         }
 
-        private static char HangleHap(char ch1, char ch2, char ch3)
+        private static string HangleHap(char ch1, char ch2, char ch3)
         {
             char[] choSung = { 'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ' };
             char[] jungSung = { 'ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ',
@@ -149,15 +149,15 @@ namespace HanSon
             jungSungIndex = GetIndexFromSyllables(jungSung, ch2);
             jongSungIndex = GetIndexFromSyllables(jongSung, ch3);
 
-            if (-1 == choSungIndex)
-                return ch2;
-
             isValidIndex = (-1 != choSungIndex) && (-1 != jungSungIndex) && (-1 != jongSungIndex);
-            Debug.Assert(isValidIndex);
+            if (!isValidIndex)
+            {
+                return string.Format("{0}{1}{2}", ch1, ch2, ch3) ;
+            }
 
             int uniValue = (choSungIndex * 21 * 28) + (jungSungIndex * 28) + (jongSungIndex) + 0xAC00;
 
-            return (char)uniValue;
+            return string.Format("{0}",(char)uniValue);
         }
 
         private void KeyNumPad1Down(ref KeyEventArgs e)

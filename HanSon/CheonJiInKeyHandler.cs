@@ -152,7 +152,7 @@ namespace HanSon
             isValidIndex = (-1 != choSungIndex) && (-1 != jungSungIndex) && (-1 != jongSungIndex);
             if (!isValidIndex)
             {
-                return string.Format("{0}{1}{2}", ch1, ch2, ch3) ;
+                return string.Format("{0}{1}{2}", ch1.ToString().Replace(' ', '\0'), ch2.ToString().Replace(' ', '\0'), ch3.ToString().Replace(' ', '\0')) ;
             }
 
             int uniValue = (choSungIndex * 21 * 28) + (jungSungIndex * 28) + (jongSungIndex) + 0xAC00;
@@ -1153,10 +1153,6 @@ namespace HanSon
             if (KeyDownDictionary.ContainsKey(e.KeyData))
             {
                 KeyDownDictionary[e.KeyData](ref e);
-            }
-            else
-            {
-                tuk = ' ';
             }
         }
 

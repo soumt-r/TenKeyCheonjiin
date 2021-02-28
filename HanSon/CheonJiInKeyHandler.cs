@@ -1062,7 +1062,7 @@ namespace HanSon
         private void KeyAddDown(ref KeyEventArgs e)
         {
             e.Handled = true;
-            if ((buffer[CHO_SUNG] != ' ') || (buffer[JUNG_SUNG] != ' ') || (buffer[JONG_SUNG] != ' '))
+            if ((buffer[CHO_SUNG] != ' ') || (buffer[JUNG_SUNG] != ' ') || (buffer[JONG_SUNG] != ' ') || (tuk != ' '))
             {
                 buffer[CHO_SUNG] = ' ';
                 buffer[JUNG_SUNG] = ' ';

@@ -40,7 +40,7 @@ namespace CopyAndPaste
         const int WM_SYSKEYDOWN = 0x104;
         const int WM_SYSKEYUP = 0x105;
 
-        private keyboardHookProc khp;
+        private readonly keyboardHookProc khp;
         IntPtr hhook = IntPtr.Zero;
 
         public event KeyEventHandler KeyDown;
@@ -69,11 +69,17 @@ namespace CopyAndPaste
             {
                 Keys key = (Keys)IParam.vkCode;
                 if ((GetKeyState(VK_CONTROL) & 0x80) != 0)
+                {
                     key |= Keys.Control;
+                }
                 if ((GetKeyState(VK_MENU) & 0x80) != 0)
+                {
                     key |= Keys.Alt;
+                }
                 if ((GetKeyState(VK_SHIFT) & 0x80) != 0)
+                {
                     key |= Keys.Shift;
+                }
 
                 KeyEventArgs kea = new KeyEventArgs(key);
                 if ((wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN) && (KeyDown != null))
@@ -85,7 +91,9 @@ namespace CopyAndPaste
                     KeyUp(this, kea);
                 }
                 if (kea.Handled)
+                {
                     return 1;
+                }
 
             }
 

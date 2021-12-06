@@ -18,7 +18,7 @@ namespace HanSon
 
         private Dictionary<Keys, System.Windows.Forms.Panel> numpadPannel;
 
-        IKeyHandler keyHandler;
+        readonly IKeyHandler keyHandler;
 
         public Form1()
         {
@@ -114,10 +114,13 @@ namespace HanSon
             IntPtr status = SendMessage(hime, WM_IME_CONTROL, new IntPtr(0x5), new IntPtr(0));
 
             if (status.ToInt32() != 0)
+            {
                 return true;
-
+            }
             else
+            {
                 return false;
+            }
         }
 
 

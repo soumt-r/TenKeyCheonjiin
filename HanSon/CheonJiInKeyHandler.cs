@@ -134,7 +134,12 @@ namespace HanSon
             }
             return false;
         }
-
+        
+        private void SendBuffer()
+        {
+            SendKeys.SendWait("{BS}");
+            SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+        }
         private static string HangleHap(char ch1, char ch2, char ch3)
         {
             char[] choSung = { 'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ' };
@@ -201,32 +206,27 @@ namespace HanSon
                 if (buffer[JONG_SUNG] == ' ')
                 {
                     buffer[JONG_SUNG] = 'ㅂ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㅂ')
                 {
                     buffer[JONG_SUNG] = 'ㅍ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㅍ')
                 {
                     buffer[JONG_SUNG] = 'ㅂ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㄹ')
                 {
                     buffer[JONG_SUNG] = 'ㄼ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㄼ')
                 {
                     buffer[JONG_SUNG] = 'ㄿ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else
                 {
@@ -279,63 +279,53 @@ namespace HanSon
                 if (buffer[JONG_SUNG] == ' ')
                 {
                     buffer[JONG_SUNG] = 'ㅅ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㅅ')
                 {
                     buffer[JONG_SUNG] = 'ㅎ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㅎ')
                 {
                     buffer[JONG_SUNG] = 'ㅆ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㅆ')
                 {
                     buffer[JONG_SUNG] = 'ㅅ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㄴ')
                 {
                     buffer[JONG_SUNG] = 'ㄶ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㄹ')
                 {
                     buffer[JONG_SUNG] = 'ㄽ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㄱ')
                 {
                     buffer[JONG_SUNG] = 'ㄳ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㄽ')
                 {
                     buffer[JONG_SUNG] = 'ㅀ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㅀ')
                 {
                     buffer[JONG_SUNG] = 'ㄽ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
 
                 else if (buffer[JONG_SUNG] == 'ㅂ')
                 {
                     buffer[JONG_SUNG] = 'ㅄ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
 
                 else if (buffer[JONG_SUNG] == 'ㅄ')
@@ -409,26 +399,22 @@ namespace HanSon
                 if (buffer[JONG_SUNG] == ' ')
                 {
                     buffer[JONG_SUNG] = 'ㅈ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㅈ')
                 {
                     buffer[JONG_SUNG] = 'ㅊ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㅊ')
                 {
                     buffer[JONG_SUNG] = 'ㅈ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㄴ')
                 {
                     buffer[JONG_SUNG] = 'ㄵ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
 
                 else if (buffer[JONG_SUNG] == 'ㄵ')
@@ -492,32 +478,27 @@ namespace HanSon
                 if (buffer[JONG_SUNG] == ' ')
                 {
                     buffer[JONG_SUNG] = 'ㄱ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㄱ')
                 {
                     buffer[JONG_SUNG] = 'ㅋ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㅋ')
                 {
                     buffer[JONG_SUNG] = 'ㄲ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㄲ')
                 {
                     buffer[JONG_SUNG] = 'ㄱ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㄹ')
                 {
                     buffer[JONG_SUNG] = 'ㄺ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else
                 {
@@ -565,20 +546,17 @@ namespace HanSon
                 if (buffer[JONG_SUNG] == ' ')
                 {
                     buffer[JONG_SUNG] = 'ㄴ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㄴ')
                 {
                     buffer[JONG_SUNG] = 'ㄹ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㄹ')
                 {
                     buffer[JONG_SUNG] = 'ㄴ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else
                 {
@@ -629,32 +607,27 @@ namespace HanSon
                 if (buffer[JONG_SUNG] == ' ')
                 {
                     buffer[JONG_SUNG] = 'ㄷ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㄷ')
                 {
                     buffer[JONG_SUNG] = 'ㅌ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㅌ')
                 {
                     buffer[JONG_SUNG] = 'ㄷ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㄹ')
                 {
                     buffer[JONG_SUNG] = 'ㄾ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JONG_SUNG] == 'ㄾ')
                 {
                     buffer[JONG_SUNG] = 'ㄹ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                     buffer[CHO_SUNG] = 'ㄷ';
                     buffer[JUNG_SUNG] = ' ';
                     buffer[JONG_SUNG] = ' ';
@@ -686,75 +659,63 @@ namespace HanSon
                 else if (buffer[JUNG_SUNG] == 'ㅓ')
                 {
                     buffer[JUNG_SUNG] = 'ㅔ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == 'ㆍ')
                 {
                     buffer[JUNG_SUNG] = 'ㅓ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == 'ᆢ')
                 {
                     buffer[JUNG_SUNG] = 'ㅕ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == 'ㅡ')
                 {
                     buffer[JUNG_SUNG] = 'ㅢ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == 'ㅗ')
                 {
                     buffer[JUNG_SUNG] = 'ㅚ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == 'ㅜ')
                 {
                     buffer[JUNG_SUNG] = 'ㅟ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == 'ㅏ')
                 {
                     buffer[JUNG_SUNG] = 'ㅐ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == 'ㅑ')
                 {
                     buffer[JUNG_SUNG] = 'ㅒ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
 
                 else if (buffer[JUNG_SUNG] == 'ㅕ')
                 {
                     buffer[JUNG_SUNG] = 'ㅖ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == 'ㅠ')
                 {
                     buffer[JUNG_SUNG] = 'ㅝ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == 'ㅝ')
                 {
                     buffer[JUNG_SUNG] = 'ㅞ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == 'ㅘ')
                 {
                     buffer[JUNG_SUNG] = 'ㅙ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == 'ㅣ')
                 {
@@ -770,8 +731,7 @@ namespace HanSon
                 else if (buffer[JUNG_SUNG] == ' ')
                 {
                     buffer[JUNG_SUNG] = 'ㅣ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
 
             }
@@ -820,8 +780,7 @@ namespace HanSon
                     buffer[JUNG_SUNG] = 'ᆢ';
                     if (buffer[CHO_SUNG] == ' ')
                     {
-                        SendKeys.SendWait("{BS}");
-                        SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                        SendBuffer();
                     }
 
                 }
@@ -830,46 +789,39 @@ namespace HanSon
                     buffer[JUNG_SUNG] = 'ㆍ';
                     if (buffer[CHO_SUNG] == ' ')
                     {
-                        SendKeys.SendWait("{BS}");
-                        SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                        SendBuffer();
                     }
 
                 }
                 else if (buffer[JUNG_SUNG] == 'ㅣ')
                 {
                     buffer[JUNG_SUNG] = 'ㅏ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == 'ㅏ')
                 {
                     buffer[JUNG_SUNG] = 'ㅑ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == 'ㅡ')
                 {
                     buffer[JUNG_SUNG] = 'ㅜ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == 'ㅜ')
                 {
                     buffer[JUNG_SUNG] = 'ㅠ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == 'ㅚ')
                 {
                     buffer[JUNG_SUNG] = 'ㅘ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == 'ㅟ')
                 {
                     buffer[JUNG_SUNG] = 'ㅝ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
             }
             else if (buffer[JONG_SUNG] != ' ')
@@ -924,20 +876,17 @@ namespace HanSon
                 else if (buffer[JUNG_SUNG] == 'ㆍ')
                 {
                     buffer[JUNG_SUNG] = 'ㅗ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == 'ᆢ')
                 {
                     buffer[JUNG_SUNG] = 'ㅛ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
                 }
                 else if (buffer[JUNG_SUNG] == ' ')
                 {
                     buffer[JUNG_SUNG] = 'ㅡ';
-                    SendKeys.SendWait("{BS}");
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                    SendBuffer();
 
                 }
             }
@@ -999,26 +948,22 @@ namespace HanSon
                     if (buffer[JONG_SUNG] == ' ')
                     {
                         buffer[JONG_SUNG] = 'ㅇ';
-                        SendKeys.SendWait("{BS}");
-                        SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                        SendBuffer();
                     }
                     else if (buffer[JONG_SUNG] == 'ㅇ')
                     {
                         buffer[JONG_SUNG] = 'ㅁ';
-                        SendKeys.SendWait("{BS}");
-                        SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                        SendBuffer();
                     }
                     else if (buffer[JONG_SUNG] == 'ㅁ')
                     {
                         buffer[JONG_SUNG] = 'ㅇ';
-                        SendKeys.SendWait("{BS}");
-                        SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                        SendBuffer();
                     }
                     else if (buffer[JONG_SUNG] == 'ㄹ')
                     {
                         buffer[JONG_SUNG] = 'ㄻ';
-                        SendKeys.SendWait("{BS}");
-                        SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                        SendBuffer();
                     }
                     else
                     {
@@ -1033,9 +978,9 @@ namespace HanSon
             n0 = true;
             if (et)
             {
+                SendKeys.SendWait("{BS}");
                 if (!isInstanceActivated)
-                {
-                    SendKeys.SendWait("{BS}");
+                {   
                     Hancheck();
                     isInstanceActivated = true;
                     e.Handled = true;

@@ -890,61 +890,69 @@ namespace HanSon
         }
         private void KeySubtractDown(ref KeyEventArgs e)
         {
-            e.Handled = true;
-            buffer[CHO_SUNG] = ' ';
-            buffer[JUNG_SUNG] = ' ';
-            buffer[JONG_SUNG] = ' ';
-            tuk = ' ';
-            SendKeys.SendWait("{BS}");
-
-        }
-        private void KeyAddDown(ref KeyEventArgs e)
-        {
-            e.Handled = true;
-            if ((buffer[CHO_SUNG] != ' ') || (buffer[JUNG_SUNG] != ' ') || (buffer[JONG_SUNG] != ' ') || (tuk != ' '))
+            if (isInstanceActivated)
             {
+                e.Handled = true;
                 buffer[CHO_SUNG] = ' ';
                 buffer[JUNG_SUNG] = ' ';
                 buffer[JONG_SUNG] = ' ';
                 tuk = ' ';
+                SendKeys.SendWait("{BS}");
             }
-            else
+        }
+        private void KeyAddDown(ref KeyEventArgs e)
+        {
+            if (isInstanceActivated)
             {
-                SendKeys.SendWait(" ");
+                e.Handled = true;
+                if ((buffer[CHO_SUNG] != ' ') || (buffer[JUNG_SUNG] != ' ') || (buffer[JONG_SUNG] != ' ') || (tuk != ' '))
+                {
+                    buffer[CHO_SUNG] = ' ';
+                    buffer[JUNG_SUNG] = ' ';
+                    buffer[JONG_SUNG] = ' ';
+                    tuk = ' ';
+                }
+                else
+                {
+                    SendKeys.SendWait(" ");
+                }
             }
         }
         private void KeyDecimalDown(ref KeyEventArgs e)
         {
-            e.Handled = true;
-            buffer[CHO_SUNG] = ' ';
-            buffer[JUNG_SUNG] = ' ';
-            buffer[JONG_SUNG] = ' ';
-            bool noChangeChar = false;
-
-            switch (tuk)
+            if (isInstanceActivated)
             {
-                case ' ':
-                    tuk = '.';
-                    noChangeChar = true;
-                    break;
-                case '.':
-                    tuk = ',';
-                    break;
-                case ',':
-                    tuk = '?';
-                    break;
-                case '?':
-                    tuk = '!';
-                    break;
-                case '!':
-                    tuk = '.';
-                    break;
-                default:
-                    noChangeChar = true;
-                    break;
+                e.Handled = true;
+                buffer[CHO_SUNG] = ' ';
+                buffer[JUNG_SUNG] = ' ';
+                buffer[JONG_SUNG] = ' ';
+                bool noChangeChar = false;
 
+                switch (tuk)
+                {
+                    case ' ':
+                        tuk = '.';
+                        noChangeChar = true;
+                        break;
+                    case '.':
+                        tuk = ',';
+                        break;
+                    case ',':
+                        tuk = '?';
+                        break;
+                    case '?':
+                        tuk = '!';
+                        break;
+                    case '!':
+                        tuk = '.';
+                        break;
+                    default:
+                        noChangeChar = true;
+                        break;
+
+                }
+                SendKeys.SendWait((noChangeChar ? "" : "{BS}") + tuk.ToString());
             }
-            SendKeys.SendWait((noChangeChar ? "" : "{BS}") + tuk.ToString());
         }
         private void KeyEnterDown(ref KeyEventArgs e)
         {
@@ -961,6 +969,7 @@ namespace HanSon
                 }
                 else
                 {
+                    SendKeys.SendWait("{BS}");
                     isInstanceActivated = false;
                     e.Handled = true;
                     Hide();

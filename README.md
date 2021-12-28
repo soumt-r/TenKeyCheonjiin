@@ -1,6 +1,6 @@
 
 <div align="center">
-![Tenkey2Cheonjiin](https://github.com/soumt-r/TenKeyCheonjiin/blob/master/Tk2Cj.png?raw=true)
+<img src="https://github.com/soumt-r/TenKeyCheonjiin/blob/master/Tk2Cj.png?raw=true" alt="Tenkey2Cheonjiin" width="auto">
 </div>
 
 # TenKeyCheonjiin [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3882890b72bd4d80a9743804e9b491f8)](https://app.codacy.com/gh/soumt-r/TenKeyCheonjiin?utm_source=github.com&utm_medium=referral&utm_content=soumt-r/TenKeyCheonjiin&utm_campaign=Badge_Grade_Settings)

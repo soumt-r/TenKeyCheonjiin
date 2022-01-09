@@ -994,16 +994,13 @@ namespace HanSon
 
         public void KeyUp(ref KeyEventArgs e)
         {
-            switch (e.KeyData)
+            if(e.KeyData == Keys.NumPad0)
             {
-                case Keys.NumPad0:
-                    n0 = false;
-                    break;
-                case Keys.Enter:
-                    et = false;
-                    break;
-                default:
-                    break;
+                n0 = false;
+            }
+            else if (e.KeyData == Keys.Enter)
+            {
+                et = false;
             }
         }
     }

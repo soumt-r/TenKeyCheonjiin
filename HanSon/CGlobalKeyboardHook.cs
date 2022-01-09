@@ -20,13 +20,18 @@ namespace CopyAndPaste
         public delegate int keyboardHookProc(int code, int wParam, ref keyboardHookStruct IParam);     // callback Delegate
 
         // keyboardHookStruct 구조체 정의
-        public struct keyboardHookStruct
+        public struct keyboardHookStruct : IEquatable<keyboardHookStruct>
         {
             public int vkCode;
             public int scanCode;
             public int flags;
             public int time;
             public int dwExtraInfo;
+
+            public bool Equals(keyboardHookStruct other)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         // 정의 되어 있는 상수 값

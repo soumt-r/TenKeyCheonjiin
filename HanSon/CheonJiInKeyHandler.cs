@@ -741,7 +741,9 @@ namespace HanSon
                     {
                         case 'ㅡ':
                             if (buffer[CHO_SUNG] == ' ')
+                            {
                                 buffer[JONG_SUNG] = ' ';
+                            }
                             buffer[CHO_SUNG] = ' ';
                             buffer[JUNG_SUNG] = 'ㅡ';
 

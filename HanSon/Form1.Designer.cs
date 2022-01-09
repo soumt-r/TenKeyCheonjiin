@@ -63,6 +63,7 @@
             this.elipseControl10 = new 궁서_급식.ElipseControl();
             this.elipseControl11 = new 궁서_급식.ElipseControl();
             this.dragControl1 = new 궁서_급식.DragControl();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -414,7 +415,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(343, 500);
+            this.ClientSize = new System.Drawing.Size(274, 400);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -488,6 +489,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private 궁서_급식.DragControl dragControl1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 

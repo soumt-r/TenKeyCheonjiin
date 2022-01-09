@@ -18,17 +18,17 @@ namespace HanSon
         public delegate void HideFunc();
 
         private char tuk = ' ';
-        private bool n0 = false;
-        private bool et = false;
+        private bool n0;
+        private bool et;
 
         private bool isInstanceActivated = true;
 
         private char[] buffer = { ' ', ' ', ' ' };
 
-        private HancheckFunc Hancheck;
+        private readonly HancheckFunc Hancheck;
 
-        private ShowFunc Show;
-        private HideFunc Hide;
+        private readonly ShowFunc Show;
+        private readonly HideFunc Hide;
 
         private Dictionary<Keys, KeyDownFunc> KeyDownDictionary;
         private void InitializeKeyDictionary()
@@ -121,7 +121,7 @@ namespace HanSon
         private void SendBuffer()
         {
             SendKeys.SendWait("{BS}");
-            SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+            SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]));
         }
         private static string HangleHap(char ch1, char ch2, char ch3)
         {
@@ -145,6 +145,7 @@ namespace HanSon
 
             int uniValue = (choSungIndex * 21 * 28) + (jungSungIndex * 28) + (jongSungIndex) + 0xAC00;
 
+            
             return string.Format("{0}", (char)uniValue);
         }
 
@@ -276,7 +277,7 @@ namespace HanSon
                         break;
                     case 'ㅄ':
                         buffer[JONG_SUNG] = 'ㅂ';
-                        SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                        SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]));
                         buffer[CHO_SUNG] = 'ㅆ';
                         buffer[JUNG_SUNG] = ' ';
                         buffer[JONG_SUNG] = ' ';
@@ -284,16 +285,6 @@ namespace HanSon
                         SendKeys.SendWait("ㅆ");
                         noBufferSend = true;
                         break;
-                    /*case 'ㄶ':
-                        buffer[JONG_SUNG] = 'ㄴ';
-                        SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
-                        buffer[CHO_SUNG] = 'ㅅ';
-                        buffer[JUNG_SUNG] = ' ';
-                        buffer[JONG_SUNG] = ' ';
-                        SendKeys.SendWait("{BS}");
-                        SendKeys.SendWait("ㅅ");
-                        noBufferSend = true;
-                        break;*/
                     default:
                         buffer[CHO_SUNG] = 'ㅅ';
                         buffer[JUNG_SUNG] = ' ';
@@ -354,7 +345,7 @@ namespace HanSon
                         break;
                     case 'ㄵ':
                         buffer[JONG_SUNG] = 'ㄴ';
-                        SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                        SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]));
                         buffer[CHO_SUNG] = 'ㅉ';
                         buffer[JUNG_SUNG] = ' ';
                         buffer[JONG_SUNG] = ' ';
@@ -530,15 +521,6 @@ namespace HanSon
                     case 'ㄹ':
                         buffer[JONG_SUNG] = 'ㄾ';
                         break;
-                    /*case 'ㄾ':
-                        buffer[JONG_SUNG] = 'ㄹ';
-                        SendBuffer();
-                        buffer[CHO_SUNG] = 'ㄷ';
-                        buffer[JUNG_SUNG] = ' ';
-                        buffer[JONG_SUNG] = ' ';
-                        SendKeys.SendWait("ㄷ");
-                        noBufferSend = true;
-                        break;*/
                     default:
                         buffer[CHO_SUNG] = 'ㄷ';
                         buffer[JUNG_SUNG] = ' ';
@@ -613,7 +595,9 @@ namespace HanSon
                             break;
                         case 'ㅣ':
                             if (buffer[CHO_SUNG] == ' ')
+                            {
                                 buffer[JONG_SUNG] = ' ';
+                            }
                             buffer[CHO_SUNG] = ' ';
                             buffer[JUNG_SUNG] = 'ㅣ';
                             noBufferSend = true;
@@ -638,7 +622,7 @@ namespace HanSon
                 SendKeys.SendWait("{BS}");
                 if (GBCCheck(buffer[JONG_SUNG], ref firstJong, ref secondJong))
                 {
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], firstJong).ToString());
+                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], firstJong));
 
                     buffer[JUNG_SUNG] = 'ㅣ';
                     buffer[CHO_SUNG] = secondJong;
@@ -646,13 +630,13 @@ namespace HanSon
                 }
                 else
                 {
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], ' ').ToString());
+                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], ' '));
 
                     buffer[JUNG_SUNG] = 'ㅣ';
                     buffer[CHO_SUNG] = buffer[JONG_SUNG];
                     buffer[JONG_SUNG] = ' ';
                 }
-                SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]));
             }
 
         }
@@ -721,14 +705,14 @@ namespace HanSon
                 SendKeys.SendWait("{BS}");
                 if (GBCCheck(buffer[JONG_SUNG], ref firstJong, ref secondJong))
                 {
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], firstJong).ToString());
+                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], firstJong));
                     buffer[JUNG_SUNG] = 'ㆍ';
                     buffer[CHO_SUNG] = secondJong;
                     buffer[JONG_SUNG] = ' ';
                 }
                 else
                 {
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], ' ').ToString());
+                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], ' '));
                     buffer[JUNG_SUNG] = 'ㆍ';
                     buffer[CHO_SUNG] = buffer[JONG_SUNG];
                     buffer[JONG_SUNG] = ' ';
@@ -797,19 +781,19 @@ namespace HanSon
                 SendKeys.SendWait("{BS}");
                 if (GBCCheck(buffer[JONG_SUNG], ref firstJong, ref secondJong))
                 {
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], firstJong).ToString());
+                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], firstJong));
                     buffer[JUNG_SUNG] = 'ㅡ';
                     buffer[CHO_SUNG] = secondJong;
                     buffer[JONG_SUNG] = ' ';
                 }
                 else
                 {
-                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], ' ').ToString());
+                    SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], ' '));
                     buffer[JUNG_SUNG] = 'ㅡ';
                     buffer[CHO_SUNG] = buffer[JONG_SUNG];
                     buffer[JONG_SUNG] = ' ';
                 }
-                SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]).ToString());
+                SendKeys.SendWait(HangleHap(buffer[CHO_SUNG], buffer[JUNG_SUNG], buffer[JONG_SUNG]));
             }
         }
         private void KeyNumPad0Down(ref KeyEventArgs e)
@@ -1015,6 +999,8 @@ namespace HanSon
                     break;
                 case Keys.Enter:
                     et = false;
+                    break;
+                default:
                     break;
             }
         }

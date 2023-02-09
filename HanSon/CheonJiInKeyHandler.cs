@@ -10,9 +10,10 @@ namespace HanSon
         private const short JONG_SUNG = 2;
 
         // delegate declarations part
+        public delegate void ChangeUILangFunc(int langMode);
         private delegate void KeyDownFunc(ref KeyEventArgs e);
 
-        public delegate void HancheckFunc();
+        public delegate void HancheckFunc(bool toHangeul);
         public delegate void ShowFunc();
         public delegate bool IsHangeulNowFunc();
         public delegate void HideFunc();
@@ -21,14 +22,17 @@ namespace HanSon
         private bool n0;
         private bool et;
 
+        private int langMode = 0;       // 0: Korean 1: English
         private bool isInstanceActivated = true;
 
         private char[] buffer = { ' ', ' ', ' ' };
+        private char engbuffer = ' ';
 
         private readonly HancheckFunc Hancheck;
 
         private readonly ShowFunc Show;
         private readonly HideFunc Hide;
+        private readonly ChangeUILangFunc ChangeUILang;
 
         private Dictionary<Keys, KeyDownFunc> KeyDownDictionary;
         private void InitializeKeyDictionary()
@@ -49,6 +53,7 @@ namespace HanSon
                 { Keys.Subtract, KeySubtractDown },
                 { Keys.Decimal, KeyDecimalDown },
                 { Keys.Enter, KeyEnterDown},
+                { Keys.Multiply, KeyMultiplyDown },
             };
         }
         private static int GetIndexFromSyllables(char[] syllables, char targetCharacter)
@@ -151,6 +156,455 @@ namespace HanSon
 
         private void KeyNumPad1Down(ref KeyEventArgs e)
         {
+            if(langMode == 0)
+            {
+                KeyNumPad1DownHangul(ref e);
+            }
+            else if (langMode == 1)
+            {
+                KeyNumPad1DownEnglish(ref e);
+            }
+
+        }
+
+        private void KeyNumPad2Down(ref KeyEventArgs e)
+        {
+            if(langMode == 0)
+            {
+                KeyNumPad2DownHangul(ref e);
+            }
+            else if (langMode == 1)
+            {
+                KeyNumPad2DownEnglish(ref e);
+            }
+
+        }
+
+        private void KeyNumPad3Down(ref KeyEventArgs e)
+        {
+            if(langMode == 0)
+            {
+                KeyNumPad3DownHangul(ref e);
+            }
+            else if (langMode == 1)
+            {
+                KeyNumPad3DownEnglish(ref e);
+            }
+        }
+        
+        private void KeyNumPad4Down(ref KeyEventArgs e)
+        {
+            if(langMode == 0)
+            {
+                KeyNumPad4DownHangul(ref e);
+            }
+            else if (langMode == 1)
+            {
+                KeyNumPad4DownEnglish(ref e);
+            }
+        }
+
+        private void KeyNumPad5Down(ref KeyEventArgs e)
+        {
+            if(langMode == 0)
+            {
+                KeyNumPad5DownHangul(ref e);
+            }
+            else if (langMode == 1)
+            {
+                KeyNumPad5DownEnglish(ref e);
+            }
+        }
+        private void KeyNumPad6Down(ref KeyEventArgs e)
+        {
+            if (langMode == 0)
+            {
+                KeyNumPad6DownHangul(ref e);
+            }
+            else if (langMode == 1)
+            {
+                KeyNumPad6DownEnglish(ref e);
+            }
+        }
+        private void KeyNumPad7Down(ref KeyEventArgs e)
+        {
+            if (langMode == 0)
+            {
+                KeyNumPad7DownHangul(ref e);
+            }
+            else if (langMode == 1)
+            {
+                e.Handled = true;    
+            }
+        }
+        private void KeyNumPad8Down(ref KeyEventArgs e)
+        {
+            if (langMode == 0)
+            {
+                KeyNumPad8DownHangul(ref e);
+            }
+            else if (langMode == 1)
+            {
+                KeyNumPad8DownEnglish(ref e);
+            }
+        }
+        private void KeyNumPad9Down(ref KeyEventArgs e)
+        {
+            if (langMode == 0)
+            {
+                KeyNumPad9DownHangul(ref e);
+            }
+            else if (langMode == 1)
+            {
+                KeyNumPad9DownEnglish(ref e);
+            }
+        }
+
+        private void KeyAddDown(ref KeyEventArgs e)
+        {
+            if (langMode == 0)
+            {
+                KeyAddDownHangul(ref e);
+            }
+            else if (langMode == 1)
+            {
+                KeyAddDownEnglish(ref e);
+            }
+        }
+
+        private void KeyMultiplyDown(ref KeyEventArgs e)
+        {
+            if (langMode == 0)
+            {
+                langMode = 1;
+            }
+            else if (langMode == 1)
+            {
+                langMode = 0;
+            }
+            ChangeUILang(langMode);
+            Hancheck(langMode == 0);
+            e.Handled = true;
+        }
+
+        private void KeyNumPad1DownEnglish(ref KeyEventArgs e)
+        {
+            if (!isInstanceActivated)
+            {
+                return;
+            }
+            e.Handled = true;
+
+            bool noChangeChar = false;
+            switch (engbuffer)
+            {
+                case 'p':
+                    engbuffer = 'q';
+                    break;
+                case 'q':
+                    engbuffer = 'r';
+                    break;
+                case 'r':
+                    engbuffer = 's';
+                    break;
+                case 's':
+                    engbuffer = 'P';
+                    break;
+                case 'P':
+                    engbuffer = 'Q';
+                    break;
+                case 'Q':
+                    engbuffer = 'R';
+                    break;
+                case 'R':
+                    engbuffer = 'S';
+                    break;
+                case 'S':
+                    engbuffer = 'p';
+                    break;
+                default:
+                    engbuffer = 'p';
+                    noChangeChar = true;
+                    break;
+
+            }
+            SendKeys.SendWait((noChangeChar ? "" : "{BS}") + engbuffer.ToString());
+        }
+
+        private void KeyNumPad2DownEnglish(ref KeyEventArgs e)
+        {
+            if (!isInstanceActivated)
+            {
+                return;
+            }
+            e.Handled = true;
+
+            bool noChangeChar = false;
+            switch (engbuffer)
+            {
+                case 't':
+                    engbuffer = 'u';
+                    break;
+                case 'u':
+                    engbuffer = 'v';
+                    break;
+                case 'v':
+                    engbuffer = 'T';
+                    break;
+                case 'T':
+                    engbuffer = 'U';
+                    break;
+                case 'U':
+                    engbuffer = 'V';
+                    break;
+                case 'V':
+                    engbuffer = 't';
+                    break;
+                default:
+                    engbuffer = 't';
+                    noChangeChar = true;
+                    break;
+
+            }
+            SendKeys.SendWait((noChangeChar ? "" : "{BS}") + engbuffer.ToString());
+        }
+
+        private void KeyNumPad3DownEnglish(ref KeyEventArgs e)
+        {
+            if (!isInstanceActivated)
+            {
+                return;
+            }
+            e.Handled = true;
+
+            bool noChangeChar = false;
+            switch (engbuffer)
+            {
+                case 'w':
+                    engbuffer = 'x';
+                    break;
+                case 'x':
+                    engbuffer = 'y';
+                    break;
+                case 'y':
+                    engbuffer = 'z';
+                    break;
+                case 'z':
+                    engbuffer = 'W';
+                    break;
+                case 'W':
+                    engbuffer = 'X';
+                    break;
+                case 'X':
+                    engbuffer = 'Y';
+                    break;
+                case 'Y':
+                    engbuffer = 'Z';
+                    break;
+                case 'Z':
+                    engbuffer = 'w';
+                    break;
+                default:
+                    engbuffer = 'w';
+                    noChangeChar = true;
+                    break;
+
+            }
+            SendKeys.SendWait((noChangeChar ? "" : "{BS}") + engbuffer.ToString());
+        }
+
+        private void KeyNumPad4DownEnglish(ref KeyEventArgs e)
+        {
+            if (!isInstanceActivated)
+            {
+                return;
+            }
+            e.Handled = true;
+
+            bool noChangeChar = false;
+            switch (engbuffer)
+            {
+                case 'g':
+                    engbuffer = 'h';
+                    break;
+                case 'h':
+                    engbuffer = 'i';
+                    break;
+                case 'i':
+                    engbuffer = 'G';
+                    break;
+                case 'G':
+                    engbuffer = 'H';
+                    break;
+                case 'H':
+                    engbuffer = 'I';
+                    break;
+                case 'I':
+                    engbuffer = 'g';
+                    break;
+                default:
+                    engbuffer = 'g';
+                    noChangeChar = true;
+                    break;
+
+            }
+            SendKeys.SendWait((noChangeChar ? "" : "{BS}") + engbuffer.ToString());
+        }
+
+        private void KeyNumPad5DownEnglish(ref KeyEventArgs e)
+        {
+            if (!isInstanceActivated)
+            {
+                return;
+            }
+            e.Handled = true;
+
+            bool noChangeChar = false;
+            switch (engbuffer)
+            {
+                case 'j':
+                    engbuffer = 'k';
+                    break;
+                case 'k':
+                    engbuffer = 'l';
+                    break;
+                case 'l':
+                    engbuffer = 'J';
+                    break;
+                case 'J':
+                    engbuffer = 'K';
+                    break;
+                case 'K':
+                    engbuffer = 'L';
+                    break;
+                case 'L':
+                    engbuffer = 'j';
+                    break;
+                default:
+                    engbuffer = 'j';
+                    noChangeChar = true;
+                    break;
+
+            }
+            SendKeys.SendWait((noChangeChar ? "" : "{BS}") + engbuffer.ToString());
+        }
+
+        private void KeyNumPad6DownEnglish(ref KeyEventArgs e)
+        {
+            if (!isInstanceActivated)
+            {
+                return;
+            }
+            e.Handled = true;
+
+            bool noChangeChar = false;
+            switch (engbuffer)
+            {
+                case 'm':
+                    engbuffer = 'n';
+                    break;
+                case 'n':
+                    engbuffer = 'o';
+                    break;
+                case 'o':
+                    engbuffer = 'M';
+                    break;
+                case 'M':
+                    engbuffer = 'N';
+                    break;
+                case 'N':
+                    engbuffer = 'O';
+                    break;
+                case 'O':
+                    engbuffer = 'm';
+                    break;
+                default:
+                    engbuffer = 'm';
+                    noChangeChar = true;
+                    break;
+
+            }
+            SendKeys.SendWait((noChangeChar ? "" : "{BS}") + engbuffer.ToString());
+        }
+
+        private void KeyNumPad8DownEnglish(ref KeyEventArgs e)
+        {
+            if (!isInstanceActivated)
+            {
+                return;
+            }
+            e.Handled = true;
+            
+            bool noChangeChar = false;
+            switch (engbuffer)
+            {
+                case 'a':
+                    engbuffer = 'b';
+                    break;
+                case 'b':
+                    engbuffer = 'c';
+                    break;
+                case 'c':
+                    engbuffer = 'A';
+                    break;
+                case 'A':
+                    engbuffer = 'B';
+                    break;
+                case 'B':
+                    engbuffer = 'C';
+                    break;
+                case 'C':
+                    engbuffer = 'a';
+                    break;
+                default:
+                    engbuffer = 'a';
+                    noChangeChar = true;
+                    break;
+
+            }
+            SendKeys.SendWait((noChangeChar ? "" : "{BS}") + engbuffer.ToString());
+        }
+
+        private void KeyNumPad9DownEnglish(ref KeyEventArgs e)
+        {
+            if (!isInstanceActivated)
+            {
+                return;
+            }
+            e.Handled = true;
+
+            bool noChangeChar = false;
+            switch (engbuffer)
+            {
+                case 'd':
+                    engbuffer = 'e';
+                    break;
+                case 'e':
+                    engbuffer = 'f';
+                    break;
+                case 'f':
+                    engbuffer = 'D';
+                    break;
+                case 'D':
+                    engbuffer = 'E';
+                    break;
+                case 'E':
+                    engbuffer = 'F';
+                    break;
+                case 'F':
+                    engbuffer = 'd';
+                    break;
+                default:
+                    engbuffer = 'd';
+                    noChangeChar = true;
+                    break;
+
+            }
+            SendKeys.SendWait((noChangeChar ? "" : "{BS}") + engbuffer.ToString());
+        }
+
+        private void KeyNumPad1DownHangul(ref KeyEventArgs e)
+        {
             if (!isInstanceActivated)
             {
                 return;
@@ -213,7 +667,7 @@ namespace HanSon
                 }
             }
         }
-        private void KeyNumPad2Down(ref KeyEventArgs e)
+        private void KeyNumPad2DownHangul(ref KeyEventArgs e)
         {
             if (!isInstanceActivated)
             {
@@ -299,7 +753,7 @@ namespace HanSon
                 }
             }
         }
-        private void KeyNumPad3Down(ref KeyEventArgs e)
+        private void KeyNumPad3DownHangul(ref KeyEventArgs e)
         {
             if (!isInstanceActivated)
             {
@@ -367,7 +821,7 @@ namespace HanSon
                 }
             }
         }
-        private void KeyNumPad4Down(ref KeyEventArgs e)
+        private void KeyNumPad4DownHangul(ref KeyEventArgs e)
         {
             if (!isInstanceActivated)
             {
@@ -427,7 +881,7 @@ namespace HanSon
                 }
             }
         }
-        private void KeyNumPad5Down(ref KeyEventArgs e)
+        private void KeyNumPad5DownHangul(ref KeyEventArgs e)
         {
             if (!isInstanceActivated)
             {
@@ -478,7 +932,7 @@ namespace HanSon
                 }
             }
         }
-        private void KeyNumPad6Down(ref KeyEventArgs e)
+        private void KeyNumPad6DownHangul(ref KeyEventArgs e)
         {
             if (!isInstanceActivated)
             {
@@ -535,7 +989,7 @@ namespace HanSon
                 }
             }
         }
-        private void KeyNumPad7Down(ref KeyEventArgs e)
+        private void KeyNumPad7DownHangul(ref KeyEventArgs e)
         {
             if (!isInstanceActivated)
             {
@@ -640,7 +1094,7 @@ namespace HanSon
             }
 
         }
-        private void KeyNumPad8Down(ref KeyEventArgs e)
+        private void KeyNumPad8DownHangul(ref KeyEventArgs e)
         {
             if (!isInstanceActivated)
             {
@@ -720,7 +1174,7 @@ namespace HanSon
                 SendKeys.SendWait(buffer[CHO_SUNG].ToString());
             }
         }
-        private void KeyNumPad9Down(ref KeyEventArgs e)
+        private void KeyNumPad9DownHangul(ref KeyEventArgs e)
         {
             if (!isInstanceActivated)
             {
@@ -803,55 +1257,57 @@ namespace HanSon
             if (isInstanceActivated)
             {
                 e.Handled = true;
-
-                if (buffer[JUNG_SUNG] == ' ')
+                if (langMode == 0)
                 {
-                    bool noChangeChar = false;
-                    switch (buffer[CHO_SUNG])
+                    if (buffer[JUNG_SUNG] == ' ')
                     {
-                        case 'ㅇ':
-                            buffer[CHO_SUNG] = 'ㅁ';
-                            break;
+                        bool noChangeChar = false;
+                        switch (buffer[CHO_SUNG])
+                        {
+                            case 'ㅇ':
+                                buffer[CHO_SUNG] = 'ㅁ';
+                                break;
 
-                        case 'ㅁ':
-                            buffer[CHO_SUNG] = 'ㅇ';
-                            break;
+                            case 'ㅁ':
+                                buffer[CHO_SUNG] = 'ㅇ';
+                                break;
 
-                        default:
-                            buffer[CHO_SUNG] = 'ㅇ';
-                            noChangeChar = true;
-                            break;
+                            default:
+                                buffer[CHO_SUNG] = 'ㅇ';
+                                noChangeChar = true;
+                                break;
+                        }
+                        SendKeys.SendWait((noChangeChar ? "" : "{BS}") + buffer[CHO_SUNG].ToString());
+
                     }
-                    SendKeys.SendWait((noChangeChar ? "" : "{BS}") + buffer[CHO_SUNG].ToString());
-
-                }
-                else
-                {
-                    bool noBufferSend = false;
-
-                    switch (buffer[JONG_SUNG])
+                    else
                     {
-                        case ' ':
-                        case 'ㅁ':
-                            buffer[JONG_SUNG] = 'ㅇ';
-                            break;
-                        case 'ㅇ':
-                            buffer[JONG_SUNG] = 'ㅁ';
-                            break;
-                        case 'ㄹ':
-                            buffer[JONG_SUNG] = 'ㄻ';
-                            break;
-                        default:
-                            buffer[CHO_SUNG] = 'ㅇ';
-                            buffer[JUNG_SUNG] = ' ';
-                            buffer[JONG_SUNG] = ' ';
-                            SendKeys.SendWait("ㅇ");
-                            noBufferSend = true;
-                            break;
-                    }
-                    if (!noBufferSend)
-                    {
-                        SendBuffer();
+                        bool noBufferSend = false;
+
+                        switch (buffer[JONG_SUNG])
+                        {
+                            case ' ':
+                            case 'ㅁ':
+                                buffer[JONG_SUNG] = 'ㅇ';
+                                break;
+                            case 'ㅇ':
+                                buffer[JONG_SUNG] = 'ㅁ';
+                                break;
+                            case 'ㄹ':
+                                buffer[JONG_SUNG] = 'ㄻ';
+                                break;
+                            default:
+                                buffer[CHO_SUNG] = 'ㅇ';
+                                buffer[JUNG_SUNG] = ' ';
+                                buffer[JONG_SUNG] = ' ';
+                                SendKeys.SendWait("ㅇ");
+                                noBufferSend = true;
+                                break;
+                        }
+                        if (!noBufferSend)
+                        {
+                            SendBuffer();
+                        }
                     }
                 }
             }
@@ -861,7 +1317,8 @@ namespace HanSon
                 SendKeys.SendWait("{BS}");
                 if (!isInstanceActivated)
                 {
-                    Hancheck();
+                
+                    Hancheck(langMode==0);
                     isInstanceActivated = true;
                     e.Handled = true;
                     Show();
@@ -882,11 +1339,14 @@ namespace HanSon
                 buffer[CHO_SUNG] = ' ';
                 buffer[JUNG_SUNG] = ' ';
                 buffer[JONG_SUNG] = ' ';
+                engbuffer = ' ';
                 tuk = ' ';
                 SendKeys.SendWait("{BS}");
             }
         }
-        private void KeyAddDown(ref KeyEventArgs e)
+        
+
+        private void KeyAddDownHangul(ref KeyEventArgs e)
         {
             if (isInstanceActivated)
             {
@@ -904,6 +1364,22 @@ namespace HanSon
                 }
             }
         }
+        private void KeyAddDownEnglish(ref KeyEventArgs e)
+        {
+            if (isInstanceActivated)
+            {
+                e.Handled = true;
+                if (engbuffer != ' ')
+                {
+                    engbuffer = ' ';
+                }
+                else
+                {
+                    SendKeys.SendWait(" ");
+                }
+            }
+        }
+
         private void KeyDecimalDown(ref KeyEventArgs e)
         {
             if (isInstanceActivated)
@@ -912,6 +1388,8 @@ namespace HanSon
                 buffer[CHO_SUNG] = ' ';
                 buffer[JUNG_SUNG] = ' ';
                 buffer[JONG_SUNG] = ' ';
+                engbuffer = ' ';
+                
                 bool noChangeChar = false;
 
                 switch (tuk)
@@ -948,7 +1426,7 @@ namespace HanSon
                 if (!isInstanceActivated)
                 {
                     SendKeys.SendWait("{BS}");
-                    Hancheck();
+                    Hancheck(langMode == 0);
                     isInstanceActivated = true;
                     e.Handled = true;
                     Show();
@@ -966,15 +1444,20 @@ namespace HanSon
                 buffer[CHO_SUNG] = ' ';
                 buffer[JONG_SUNG] = ' ';
                 buffer[JUNG_SUNG] = ' ';
+                engbuffer = ' ';
+                
                 tuk = ' ';
+
             }
         }
 
-        public CheonJiInKeyHandler(HancheckFunc hancheck, ShowFunc showFunc, HideFunc hideFunc)
+        public CheonJiInKeyHandler(HancheckFunc hancheck, ShowFunc showFunc, HideFunc hideFunc, ChangeUILangFunc changeUILangFunc)
         {
             Hancheck = hancheck;
             Show = showFunc;
             Hide = hideFunc;
+            ChangeUILang = changeUILangFunc;
+
 
             InitializeKeyDictionary();
         }

@@ -26,7 +26,8 @@ namespace HanSon
 
             // resources allocation part
             captainHook = new CGlobalKeyboardHook();
-            keyHandler = new CheonJiInKeyHandler(Hancheck, FormShow, FormHide);
+            keyHandler = new CheonJiInKeyHandler(Hancheck, FormShow, FormHide, ChangeUILang);
+            
         }
 
         private void InitializeScreen()
@@ -98,12 +99,100 @@ namespace HanSon
             Hide();
         }
 
-        public void Hancheck()
+        public Font LabelSize(Label label, String text)
         {
-            if (!IsHangeulNow())
+            Font ft;
+            Graphics gp;
+            SizeF sz;
+            Single Factor, FactorX, FactorY;
+
+            gp = label.CreateGraphics();
+            sz = gp.MeasureString(text, label.Font);
+            gp.Dispose();
+
+            FactorX = (label.Width) / sz.Width;
+            FactorY = (label.Height) / sz.Height;
+
+            if (FactorX > FactorY)
+                Factor = FactorY;
+            else
+                Factor = FactorX;
+            ft = label.Font;
+
+            return new Font(ft.Name, ft.SizeInPoints * (Factor) - 1);
+        }
+
+        public void ChangeUILang(int LangMode)
+        {
+            if(LangMode == 0)
             {
-                keybd_event((byte)Keys.HanguelMode, 0, 0, 0);     //  누름
-                keybd_event((byte)Keys.HanguelMode, 0, 0x02, 0);  //  누름 해제 
+                label1.Text = "ㅣ";
+                label1.Font = LabelSize(label1, "ㅣ");
+                label2.Text = "ㆍ";
+                label2.Font = LabelSize(label2, "ㆍ");
+                label3.Text = "ㅡ";
+                label3.Font = LabelSize(label3, "ㅡ");
+
+                label4.Text = "ㄱㅋ";
+                label4.Font = LabelSize(label4, "ㄱㅋ");
+                label5.Text = "ㄴㄹ";
+                label5.Font = LabelSize(label5, "ㄴㄹ");
+                label6.Text = "ㄷㅌ";
+                label6.Font = LabelSize(label6, "ㄷㅌ");
+
+                label7.Text = "ㅂㅍ";
+                label7.Font = LabelSize(label7, "ㅂㅍ");
+                label8.Text = "ㅅㅎ";
+                label8.Font = LabelSize(label8, "ㅅㅎ");
+                label9.Text = "ㅈㅊ";
+                label9.Font = LabelSize(label9, "ㅈㅊ");
+
+                label10.Text = "ㅇㅁ";
+                label10.Font = LabelSize(label10, "ㅇㅁ");
+            }
+            else if (LangMode == 1)
+            {
+                label1.Text = "";
+                label2.Text = "ABC";
+                label2.Font = new Font(label1.Font.Name, 13F);
+                label3.Text = "DEF";
+                label3.Font = new Font(label1.Font.Name, 13F);
+
+                label4.Text = "GHI";
+                label4.Font = new Font(label1.Font.Name, 13F);
+                label5.Text = "JKL";
+                label5.Font = new Font(label1.Font.Name, 13F);
+                label6.Text = "MNO";
+                label6.Font = new Font(label1.Font.Name, 13F);
+
+                label7.Text = "PQRS";
+                label7.Font = new Font(label1.Font.Name, 13F);
+                label8.Text = "TUV";
+                label8.Font = new Font(label1.Font.Name, 13F);
+                label9.Text = "WXYZ";
+                label9.Font = new Font(label1.Font.Name, 13F);
+
+                label10.Text = "";
+            }
+        }
+
+        public void Hancheck(bool toHangeul)
+        {
+            if (toHangeul)
+            {
+                if (!IsHangeulNow())
+                {
+                    keybd_event((byte)Keys.HanguelMode, 0, 0, 0);     //  누름
+                    keybd_event((byte)Keys.HanguelMode, 0, 0x02, 0);  //  누름 해제 
+                }
+            }
+            else
+            {
+                if (IsHangeulNow())
+                {
+                    keybd_event((byte)Keys.HanguelMode, 0, 0, 0);     //  누름
+                    keybd_event((byte)Keys.HanguelMode, 0, 0x02, 0);  //  누름 해제 
+                }
             }
         }
         private bool IsHangeulNow()

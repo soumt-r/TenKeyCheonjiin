@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="CGlobalKeyboardHook.cs" />
     <Compile Include="CheonJiInKeyHandler.cs" />
+    <Compile Include="HangeulAutomata.cs" />
     <Compile Include="DragControl.cs">
       <SubType>Component</SubType>
     </Compile>

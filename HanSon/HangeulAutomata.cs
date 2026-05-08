@@ -11,7 +11,8 @@ namespace HanSon
 
     public class HangeulAutomata
     {
-        private char _cho = ' ', _jung = ' ', _jong = ' ';
+        private char _cho = ' ', _jung = ' ';
+        private string _jong = "";
         private string _lastOutput = "";
 
         // 자음 순환 규칙
@@ -83,48 +84,63 @@ namespace HanSon
             // 2. 종성 단계
             else
             {
-                if (_jong == ' ')
+                if (string.IsNullOrEmpty(_jong))
                 {
-                    _jong = input;
+                    _jong = input.ToString();
                 }
-                else
+                else if (_jong.Length == 1)
                 {
-                    // A. 겹받침 형성 시도 (ㄹ + ㅅ = ㄽ)
-                    string combo = _jong.ToString() + input;
+                    string combo = _jong + input;
                     if (BatchimCombineRules.ContainsKey(combo))
                     {
-                        _jong = BatchimCombineRules[combo];
+                        _jong = BatchimCombineRules[combo].ToString();
                     }
-                    // B. 단일 종성 사이클 (ㄱ -> ㅋ)
-                    else if (KeyBaseMap.ContainsKey(input) && KeyBaseMap.ContainsKey(_jong) && KeyBaseMap[input] == KeyBaseMap[_jong])
+                    else if (KeyBaseMap.ContainsKey(input) && KeyBaseMap.ContainsKey(_jong[0]) && KeyBaseMap[input] == KeyBaseMap[_jong[0]])
                     {
-                        _jong = CycleRules[_jong];
+                        _jong = CycleRules[_jong[0]].ToString();
                     }
-                    // C. 겹받침 내부 사이클 (ㄽ -> ㅀ)
-                    else if (SplitRules.ContainsKey(_jong))
+                    else if (SplitRules.ContainsKey(_jong[0]))
                     {
-                        var split = SplitRules[_jong];
-                        if (KeyBaseMap.ContainsKey(input) && KeyBaseMap.ContainsKey(split.Item2) && KeyBaseMap[input] == KeyBaseMap[split.Item2])
+                        var split = SplitRules[_jong[0]];
+                        if (KeyBaseMap.ContainsKey(input) && KeyBaseMap[input] == KeyBaseMap[split.Item2])
                         {
-                            char newSecond = CycleRules[split.Item2];
-                            string newCombo = split.Item1.ToString() + newSecond;
-                            
-                            if (BatchimCombineRules.ContainsKey(newCombo))
-                            {
-                                _jong = BatchimCombineRules[newCombo];
-                            }
+                            char nextSec = CycleRules[split.Item2];
+                            string newC = split.Item1.ToString() + nextSec;
+                            if (BatchimCombineRules.ContainsKey(newC)) _jong = BatchimCombineRules[newC].ToString();
                             else
                             {
-                                // 더 이상 결합 불가 시 분리 (일 + ㅆ)
-                                string s1 = Compose(_cho, _jung, split.Item1);
-                                _cho = newSecond; _jung = ' '; _jong = ' ';
+                                string s1 = Compose(_cho, _jung, split.Item1.ToString());
+                                _cho = nextSec; _jung = ' '; _jong = "";
                                 _lastOutput = _cho.ToString();
                                 return new AutomataResult { DeleteCount = prevDisplay.Length, InsertText = s1 + _lastOutput };
                             }
                         }
+                        else return StartNewSyllable(input);
+                    }
+                    else if ("ㄱㄴㄹㅂㅅ".Contains(_jong))
+                    {
+                        _jong += input;
+                    }
+                    else
+                    {
+                        return StartNewSyllable(input);
+                    }
+                }
+                else // _jong.Length == 2 (가상 겹받침 상태)
+                {
+                    char first = _jong[0];
+                    char second = _jong[1];
+                    if (KeyBaseMap.ContainsKey(input) && KeyBaseMap.ContainsKey(second) && KeyBaseMap[input] == KeyBaseMap[second])
+                    {
+                        char nextSec = CycleRules[second];
+                        string newC = first.ToString() + nextSec;
+                        if (BatchimCombineRules.ContainsKey(newC))
+                        {
+                            _jong = BatchimCombineRules[newC].ToString();
+                        }
                         else
                         {
-                            return StartNewSyllable(input);
+                            _jong = first.ToString() + nextSec;
                         }
                     }
                     else
@@ -139,7 +155,7 @@ namespace HanSon
 
         private AutomataResult StartNewSyllable(char input)
         {
-            _cho = input; _jung = ' '; _jong = ' ';
+            _cho = input; _jung = ' '; _jong = "";
             _lastOutput = _cho.ToString();
             return new AutomataResult { DeleteCount = 0, InsertText = _lastOutput };
         }
@@ -148,14 +164,26 @@ namespace HanSon
         {
             string prevDisplay = _lastOutput;
 
-            if (_jong != ' ')
+            if (!string.IsNullOrEmpty(_jong))
             {
                 char firstPart, secondPart;
-                if (SplitRules.ContainsKey(_jong)) { (firstPart, secondPart) = SplitRules[_jong]; }
-                else { firstPart = ' '; secondPart = _jong; }
+                if (_jong.Length == 2)
+                {
+                    firstPart = _jong[0];
+                    secondPart = _jong[1];
+                }
+                else if (SplitRules.ContainsKey(_jong[0]))
+                {
+                    (firstPart, secondPart) = SplitRules[_jong[0]];
+                }
+                else
+                {
+                    firstPart = ' ';
+                    secondPart = _jong[0];
+                }
 
-                string s1 = Compose(_cho, _jung, firstPart);
-                _cho = secondPart; _jung = input; _jong = ' ';
+                string s1 = Compose(_cho, _jung, firstPart == ' ' ? "" : firstPart.ToString());
+                _cho = secondPart; _jung = input; _jong = "";
                 string s2 = Compose(_cho, _jung, _jong);
                 
                 _lastOutput = s2;
@@ -175,12 +203,11 @@ namespace HanSon
                 }
                 else
                 {
-                    // 결합 불가 시 새 글자 시작
-                    string prevSyllable = Compose(_cho, _jung, _jong);
-                    _cho = ' '; _jung = input; _jong = ' ';
-                    string newOut = prevSyllable + _jung;
+                    string prevS = Compose(_cho, _jung, _jong);
+                    _cho = ' '; _jung = input; _jong = "";
+                    string newOut = prevS + _jung;
                     var res = new AutomataResult { DeleteCount = prevDisplay.Length, InsertText = newOut };
-                    _lastOutput = newOut;
+                    _lastOutput = _jung.ToString();
                     return res;
                 }
             }
@@ -194,22 +221,25 @@ namespace HanSon
             return isVowel ? ProcessVowel(input) : ProcessConsonant(input);
         }
 
-        public void Reset() { _cho = _jung = _jong = ' '; _lastOutput = ""; }
+        public void Reset() { _cho = _jung = ' '; _jong = ""; _lastOutput = ""; }
 
-        private string Compose(char cho, char jung, char jong)
+        private string Compose(char cho, char jung, string jong)
         {
-            if (cho == ' ' && jung == ' ' && jong == ' ') return "";
+            if (cho == ' ' && jung == ' ' && string.IsNullOrEmpty(jong)) return "";
+            if (jong.Length == 2) return Compose(cho, jung, jong[0].ToString()) + jong[1];
+
+            char j = (jong.Length > 0) ? jong[0] : ' ';
             string choSungList = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
             string jungSungList = "ㅏㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅣ";
             string jongSungList = " ㄱㄲㄳㄴㄵㄶㄷㄹㄺㄻㄼㄽㄾㄿㅀㅁㅂㅄㅅㅆㅇㅈㅊㅋㅌㅍㅎ";
 
             int choIdx = choSungList.IndexOf(cho);
             int jungIdx = jungSungList.IndexOf(jung);
-            int jongIdx = jongSungList.IndexOf(jong);
+            int jongIdx = jongSungList.IndexOf(j);
 
             if (choIdx < 0 || jungIdx < 0)
             {
-                return $"{cho}{jung}{jong}".Replace(" ", "").Replace("\0", "");
+                return $"{cho}{jung}{j}".Replace(" ", "").Replace("\0", "");
             }
 
             int uniValue = (choIdx * 21 * 28) + (jungIdx * 28) + jongIdx + 0xAC00;

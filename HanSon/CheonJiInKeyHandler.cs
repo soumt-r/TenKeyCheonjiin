@@ -22,7 +22,8 @@ namespace HanSon
         private char _engBuf = ' ', _symBuf = ' ';
         private bool _isZeroDown, _isEnterDown;
 
-        private struct KeyDef {
+        private struct KeyDef
+        {
             public char Han; public string Eng; public bool IsV;
             public KeyDef(char h, string e, bool v) { Han = h; Eng = e; IsV = v; }
         }
@@ -54,7 +55,7 @@ namespace HanSon
                 e.Handled = true;
                 if (_langMode == 0) Execute(_automata.ProcessConsonantOrVowel(def.Han, def.IsV));
                 else if (def.Eng != null) Cycle(def.Eng, ref _engBuf);
-                
+
                 if (e.KeyCode == Keys.NumPad0) _isZeroDown = true;
                 _symBuf = ' ';
             }

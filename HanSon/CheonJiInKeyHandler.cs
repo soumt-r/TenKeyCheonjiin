@@ -20,7 +20,7 @@ namespace HanSon
         private int _langMode = 0;       // 0: Korean, 1: English
         private bool _isActive = true;
         private char _engBuf = ' ', _symBuf = ' ';
-        private bool _isZeroDown, _isEnterDown;
+        private bool _isZeroDown, _isEnterDown, _toggleLatched;
 
         private struct KeyDef
         {
@@ -69,13 +69,18 @@ namespace HanSon
                 case Keys.Enter:    _isEnterDown = true; Reset(); break;
             }
 
-            if (_isZeroDown && _isEnterDown) ToggleActive(ref e);
+            if (_isZeroDown && _isEnterDown && !_toggleLatched)
+            {
+                _toggleLatched = true;
+                ToggleActive(ref e);
+            }
         }
 
         public void KeyUp(ref KeyEventArgs e)
         {
             if (e.KeyCode == Keys.NumPad0) _isZeroDown = false;
             else if (e.KeyCode == Keys.Enter) _isEnterDown = false;
+            if (!_isZeroDown && !_isEnterDown) _toggleLatched = false;
         }
 
         private void Cycle(string chars, ref char buf)
